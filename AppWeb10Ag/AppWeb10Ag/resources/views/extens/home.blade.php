@@ -167,7 +167,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="hero-content">
-                    <h1>POLK Sistema de Asistencia Virtual</h1>
+                    <h1>POLK2 Sistema de Asistencia Virtual</h1>
                     <h2>COLEGIO "10 DE AGOSTO"</h2>
                     <p>Gestión integral de asistencia estudiantil para el cantón San Lorenzo, Esmeraldas. Control eficiente, reportes detallados y seguimiento académico en tiempo real.</p>
                     <div class="d-flex gap-3">
