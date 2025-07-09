@@ -1,0 +1,210 @@
+--------------PROCESOS DE CONFIGURACION DE LARAVEL--------------
+Pasos de Instacion y ejecucion.
+
+1) Descarga el paquete de gestion de base de datos y servidor ha utilizar/ Recomendados(Xampp,Wamp).
+
+2) Descargar el gestor de paquetes para PHP Recomendado(Composer).
+
+3) Descargar Git- usar git Bash para facilitar el manejo de composer mediante comandos, tambien puedes usar(cdm)
+ 
+---- Comandos basicos de Composer-------
+ ....... Instalacion de laravel (composer global require "laravel/installer=~1.1").
+......... Crear proyecto de prueba, abre tu ventana de Git Bash o cmd en la capeta de [C:\xampp\htdocs].
+........... Genera el primer proyecto con el comando(composer create-project laravel/laravel example).
+
+
+....Comando de para laravel, artisan..........
+Mostrar el servidor en el que se esta ejecutando(php artisan serve) 
+Comdo para mostrar todos los comando definidos en artisan (php artisan)
+
+laravel.js
+https://gist.github.com/JeffreyWay/5112282
+
+
+php artisan make:controller API/BlogController -r
+https://compucenter33.blogspot.com/2022/02/como-hacer-una-api-rest-php-segura-en.html
+
+
+Crear Api de forma rapida
+https://github.com/sdkconsultoria/core
+
+Ejecutando el comando
+
+composer require sdkconsultoria/core
+inicializar libreria
+
+php artisan sdk:core-install && php artisan migrate:fresh && php artisan sdk:permissions
+crear usuario con su token
+
+php artisan sdk:user admin@sdkconsultoria.com --token
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+En Laravel, puedes implementar un sistema de inicio de sesión utilizando el middleware de autenticación que Laravel proporciona de forma predeterminada, así como una tabla de usuarios para almacenar la información de los usuarios. A continuación, te mostraré los pasos básicos para crear un sistema de inicio de sesión en Laravel:
+
+Crear una nueva aplicación Laravel:
+Si aún no tienes una aplicación Laravel, puedes crear una nueva ejecutando el siguiente comando en tu terminal:
+
+bash
+Copy code
+composer create-project laravel/laravel nombre-de-tu-proyecto
+Configurar la base de datos:
+Asegúrate de que tu aplicación esté configurada para utilizar una base de datos. Esto se configura en el archivo .env. Asegúrate de que los detalles de tu base de datos estén configurados correctamente.
+
+Generar el modelo y la migración de usuarios:
+Laravel proporciona un comando útil para generar automáticamente el modelo de usuario y la migración para la tabla de usuarios. Ejecuta el siguiente comando:
+
+go
+Copy code
+php artisan make:model User -m
+Esto creará un archivo de migración en el directorio database/migrations y un modelo User en el directorio app/Models (en versiones más recientes de Laravel) o app.
+
+Define la estructura de la tabla en la migración:
+Abre el archivo de migración recién creado en database/migrations y define la estructura de la tabla de usuarios. Puedes agregar campos como name, email, password, etc. Por ejemplo:
+
+php
+Copy code
+public function up()
+{
+    Schema::create('users', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->string('email')->unique();
+        $table->string('password');
+        $table->timestamps();
+    });
+}
+Ejecutar la migración:
+Ejecuta el comando php artisan migrate para crear la tabla de usuarios en la base de datos.
+
+Configurar el sistema de autenticación:
+Laravel viene con un controlador de autenticación predefinido que puedes generar usando el siguiente comando:
+
+go
+Copy code
+php artisan make:auth
+Esto generará rutas, controladores y vistas necesarias para el registro y el inicio de sesión.
+
+Utilizar el middleware de autenticación:
+Asegúrate de que las rutas o controladores a los que deseas restringir el acceso estén protegidos por el middleware de autenticación. Puedes hacerlo de la siguiente manera en las rutas web (archivo routes/web.php):
+
+php
+Copy code
+Route::middleware(['auth'])->group(function () {
+    // Rutas protegidas
+});
+Crear vistas y formularios:
+Asegúrate de que tengas vistas y formularios para el registro y el inicio de sesión en la carpeta resources/views/auth.
+
+Implementar las acciones de registro e inicio de sesión en el controlador:
+El controlador RegisterController y LoginController generados por el comando make:auth contienen lógica para manejar el registro y el inicio de sesión de usuarios. Puedes personalizarlos según tus necesidades.
+
+Agregar enlaces de registro e inicio de sesión en tus vistas:
+Asegúrate de agregar enlaces o botones de registro e inicio de sesión en tus vistas.
+
+Personalizar las redirecciones:
+Puedes personalizar las redirecciones después de que un usuario se haya registrado o iniciado sesión editando los métodos redirectTo en los controladores RegisterController y LoginController.
+
+¡Listo!
+Con estos pasos, deberías tener un sistema de inicio de sesión funcional en tu aplicación Laravel utilizando el middleware de autenticación y una tabla de usuarios.
+
+Recuerda que este es un proceso general y que puedes personalizarlo según las necesidades específicas de tu proyecto.
+
+
+
+
+User
+dame ejemplos de los controladores con las redireciones cambiadas 
+ChatGPT
+Por supuesto, aquí tienes ejemplos de controladores de registro e inicio de sesión en Laravel con las redirecciones personalizadas:
+
+Controlador de Registro (RegisterController.php):
+php
+Copy code
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
+class RegisterController extends Controller
+{
+    use RegistersUsers;
+
+    protected $redirectTo = '/dashboard'; // Cambiar la redirección después del registro
+
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
+    protected function create(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+    }
+}
+Controlador de Inicio de Sesión (LoginController.php):
+php
+Copy code
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
+class LoginController extends Controller
+{
+    use AuthenticatesUsers;
+
+    protected $redirectTo = '/dashboard'; // Cambiar la redirección después del inicio de sesión
+
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+}
+En estos ejemplos, he cambiado la propiedad $redirectTo en ambos controladores para que después de que un usuario se registre o inicie sesión, sea redirigido a la ruta /dashboard. Puedes personalizar la ruta según tus necesidades. Asegúrate de que la ruta especificada exista en tu aplicación y esté configurada correctamente en tus rutas.
+
+Recuerda que estos son solo ejemplos y puedes personalizar aún más estos controladores y las redirecciones según las necesidades específicas de tu proyecto.
+
+INTERFAS DE USUARIO PARA LOGIN Y REGISTRO AUTOMATICOS 
+
+composer require laravel/ui
+
+php artisan ui bootstrap --auth
+php artisan ui vue --auth
+php artisan ui react --auth
+
+
+npm install && npm run dev
+npm install -g npm@10.2.1 
+
+
+https://preview.colorlib.com/theme/bootstrap/carousel-02/
+
+
+
