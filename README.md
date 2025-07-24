@@ -108,3 +108,16 @@ Este proyecto se distribuye bajo la licencia MIT.
 
 🤝 Contribuciones
 ¡Se aceptan contribuciones! Si deseas colaborar, abre un issue o realiza un fork del proyecto.
+
+
+
+
+
+
+
+
+
+
+
+LINK DEL PROYECTO PRINCIPAL V001:https://www.mediafire.com/file/en0wy7028d1uiy2/Proeycto\_integral\_practicas.zip/file
+
