@@ -121,3 +121,23 @@ Este proyecto se distribuye bajo la licencia MIT.
 
 LINK DEL PROYECTO PRINCIPAL V001:https://www.mediafire.com/file/en0wy7028d1uiy2/Proeycto\_integral\_practicas.zip/file
 
+
+
+
+
+maria.gonzalez@colegio.edu.ec  Administrador
+
+123456
+
+
+
+ana.martinez@colegio.edu.ec
+
+123456
+
+
+
+juan.perez@colegio.edu.ec
+
+123456
+
